@@ -5,14 +5,17 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
+
+import com.orhanobut.logger.Logger;
 
 public class HandlerThreadActivity extends AppCompatActivity {
 
     private TextView tvMain;
     private HandlerThread mHandlerThread;
     private Handler mThreadHandler;//子线程中的handler
-    private Handler mMainHandler;// = new Handler(); //UI线程中的handler
+    //private Handler mMainHandler;// = new Handler(); //UI线程中的handler
     private boolean isUpdateInfo;//以防退出界面后Handler还在执行
 
     @Override
@@ -21,6 +24,8 @@ public class HandlerThreadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         tvMain = findViewById(R.id.tv_main);
         initThread();
+        Logger.d("onCreate");
+        Log.d("TAG", "onCreateTAG");
     }
 
     private void initThread() {
