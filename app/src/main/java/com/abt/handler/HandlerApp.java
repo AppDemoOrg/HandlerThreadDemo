@@ -8,7 +8,7 @@ import com.orhanobut.logger.Logger;
 /**
  * Created by huangweiqi on 27/04/2018.
  */
-public class HandlerApplication extends Application {
+public class HandlerApp extends Application {
 
     @Override
     public void onCreate() {

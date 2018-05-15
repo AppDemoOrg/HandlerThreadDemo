@@ -8,10 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".HandlerApplication"
+        android:name=".HandlerApp"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".HandlerThreadActivity">
+        <activity android:name=".activity.ThreadActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +20,7 @@
 
         </activity>
 
-        <activity android:name=".HandlerActivity" >
+        <activity android:name=".activity.HandlerActivity" >
 
         </activity>
 

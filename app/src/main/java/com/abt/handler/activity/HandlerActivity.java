@@ -1,16 +1,18 @@
-package com.abt.handler;
+package com.abt.handler.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+
+import com.abt.handler.R;
 
 /**
  * Created by huangweiqi on 27/04/2018.
  */
-public class HandlerActivity extends Activity {
+public class HandlerActivity extends AppCompatActivity {
 
     private Handler mMainHandler;// = new Handler();
     private TextView tvMain;
