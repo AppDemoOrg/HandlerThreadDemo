@@ -1,16 +1,17 @@
-package com.abt.handler;
+package com.abt.handler.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.TextView;
 
+import com.abt.handler.R;
+import com.abt.handler.SleepThread;
 import com.orhanobut.logger.Logger;
 
-public class HandlerThreadActivity extends AppCompatActivity {
+public class ThreadActivity extends AppCompatActivity {
 
     private TextView tvMain;
     private HandlerThread mHandlerThread;
@@ -25,16 +26,23 @@ public class HandlerThreadActivity extends AppCompatActivity {
         tvMain = findViewById(R.id.tv_main);
         initThread();
         Logger.d("onCreate");
-        Log.d("TAG", "onCreateTAG");
     }
 
     private void initThread() {
-        mHandlerThread = new HandlerThread("check-message-coming");
+        mHandlerThread = new SleepThread("check-message-coming");
         mHandlerThread.start();
+
         mThreadHandler = new Handler(mHandlerThread.getLooper()) {
             @Override
             public void handleMessage(Message msg) {
-                updateUI();//模拟数据更新
+                updateUI(); // 模拟数据更新
+
+                try {
+                    Thread.sleep(2000);// 模拟耗时
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
                 if (isUpdateInfo) {
                     Message.obtain(mThreadHandler).sendToTarget();
                 }
@@ -43,28 +51,23 @@ public class HandlerThreadActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        try {
-            Thread.sleep(2000);// 模拟耗时
-            // 在子线程中可以这样更新UI
-            tvMain.post(new Runnable() {
-                @Override
-                public void run() {
-                    String result = "每隔2秒更新一下数据：";
-                    result += Math.random();
-                    tvMain.setText(result);
-                }
-            });
-//            mMainHandler.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    String result = "每隔2秒更新一下数据：";
-//                    result += Math.random();
-//                    tvMain.setText(result);
-//                }
-//            });
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // 在子线程中可以这样更新UI
+        tvMain.post(new Runnable() {
+            @Override
+            public void run() {
+                String result = "每隔2秒更新一下数据：";
+                result += Math.random();
+                tvMain.setText(result);
+            }
+        });
+        /*mMainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                String result = "每隔2秒更新一下数据：";
+                result += Math.random();
+                tvMain.setText(result);
+            }
+        });*/
     }
 
     @Override
