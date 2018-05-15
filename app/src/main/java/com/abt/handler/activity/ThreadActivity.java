@@ -29,7 +29,7 @@ public class ThreadActivity extends AppCompatActivity {
     }
 
     private void initThread() {
-        mHandlerThread = new SleepThread("check-message-coming");
+        mHandlerThread = new SleepThread("SleepThread");
         mHandlerThread.start();
 
         mThreadHandler = new Handler(mHandlerThread.getLooper()) {
@@ -38,6 +38,8 @@ public class ThreadActivity extends AppCompatActivity {
                 updateUI(); // 模拟数据更新
 
                 try {
+                    String threadName = Thread.currentThread().getName();
+                    Logger.d(threadName+" --> doing long-running operations.");
                     Thread.sleep(2000);// 模拟耗时
                 } catch (InterruptedException e) {
                     e.printStackTrace();

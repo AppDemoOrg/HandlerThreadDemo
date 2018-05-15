@@ -21,10 +21,5 @@ public class SleepThread extends HandlerThread {
     @Override
     public void run() {
         super.run();
-        try {
-            Thread.sleep(2*1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 }
