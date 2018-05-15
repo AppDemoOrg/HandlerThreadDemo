@@ -15,9 +15,9 @@ public class ThreadActivity extends AppCompatActivity {
 
     private TextView tvMain;
     private HandlerThread mHandlerThread;
-    private Handler mThreadHandler;//子线程中的handler
-    //private Handler mMainHandler;// = new Handler(); //UI线程中的handler
-    private boolean isUpdateInfo;//以防退出界面后Handler还在执行
+    private Handler mThreadHandler; // 子线程中的handler
+    // private Handler mMainHandler; // = new Handler(); // UI线程中的handler
+    private boolean isUpdateInfo; // 以防退出界面后Handler还在执行
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class ThreadActivity extends AppCompatActivity {
                 try {
                     String threadName = Thread.currentThread().getName();
                     Logger.d(threadName+" --> doing long-running operations.");
-                    Thread.sleep(2000);// 模拟耗时
+                    Thread.sleep(2000); // 模拟耗时
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -62,6 +62,7 @@ public class ThreadActivity extends AppCompatActivity {
                 tvMain.setText(result);
             }
         });
+
         /*mMainHandler.post(new Runnable() {
             @Override
             public void run() {
@@ -75,20 +76,20 @@ public class ThreadActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        isUpdateInfo = true; //开始查询
+        isUpdateInfo = true; // 开始查询
         Message.obtain(mThreadHandler).sendToTarget();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        isUpdateInfo = false;//停止查询，以防退出界面后Handler还在执行
+        isUpdateInfo = false; // 停止查询，以防退出界面后Handler还在执行
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mHandlerThread.quit();//释放资源
+        mHandlerThread.quit(); // 释放资源
     }
 
 }
